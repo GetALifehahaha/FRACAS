@@ -1,0 +1,53 @@
+services:
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: fracas_db
+    environment:
+      - POSTGRES_DB=fracas_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: django_backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  celery:
+    build: ./backend
+    container_name: celery_worker
+    command: celery -A backend worker --loglevel=info
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  postgres_data:
