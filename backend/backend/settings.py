@@ -41,9 +41,15 @@ INSTALLED_APPS = [
 
     # LIBRARIES
     'rest_framework',
+    'django.contrib.gis',
 
     # APPS
     'rainfall_fetch',
+    'barangays',
+    'alert',
+    'dam_level',
+    'risk_score',
+    'users',
 ]
 
 MIDDLEWARE = [
