@@ -37,7 +37,8 @@ def parse_rainfall_data(data, barangay_name=None):
             'forecast_strength_4hr'
             ]}
 
-    forecast = lambda x: precipitation[index + x] if index + x < len(precipitation) else 0
+    # 1 hand function to get the precipitation based on hour represented as index, which is 1, 2, 3, 4
+    forecast = lambda x: precipitation[index + x] if index + x < len(precipitation) else 0 
 
     return {
         'current_rainfall_strength': current_rainfall,
@@ -53,7 +54,7 @@ def fetch_rainfall_information():
     timestamp = timezone.now()
     readings = []
 
-    for barangay in barangays[:3]:
+    for barangay in barangays:
         try:
 
             centroid = barangay.boundary.centroid # get the coordinates from each barangays

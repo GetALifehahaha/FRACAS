@@ -8,7 +8,9 @@ class Barangay(models.Model):
     area_square_km = models.FloatField(null=True, blank=True)
     boundary = models.MultiPolygonField(srid=4326)
 
-    land_height = models.FloatField(blank=True, null=True)
+    land_height_mean = models.FloatField(blank=True, null=True)
+    land_height_min = models.FloatField(blank=True, null=True)
+    land_height_max = models.FloatField(blank=True, null=True)
 
     class Meta:
         indexes = [
