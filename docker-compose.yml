@@ -5,10 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.db
     container_name: fracas_db
-    environment:
-      - POSTGRES_DB=fracas_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file: .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -20,17 +17,25 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
 
   backend:
     build: ./backend
-    container_name: django_backend
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000 --workers 3
     volumes:
       - ./backend:/backend
-    ports:
-      - "8000:8000"
+      - static_volume:/backend/staticfiles
+      - media_volume:/backend/media
+    env_file: .env
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import socket; s=socket.socket(); s.connect(('localhost', 8000)); s.close()\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    expose:
+      - "8000"
     depends_on:
       db:
         condition: service_healthy
@@ -41,6 +46,7 @@ services:
     build: ./backend
     container_name: celery_worker
     command: celery -A backend worker --loglevel=info
+    env_file: .env
     volumes:
       - ./backend:/backend
     depends_on:
@@ -49,6 +55,20 @@ services:
       redis:
         condition: service_started
 
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/backend/staticfiles 
+      - media_volume:/backend/media
+    depends_on:
+      backend:
+        condition:
+          service_healthy
+
 volumes:
   postgres_data:
-  
+  static_volume:
+  media_volume:

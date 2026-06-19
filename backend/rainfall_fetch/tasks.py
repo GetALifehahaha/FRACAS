@@ -4,13 +4,11 @@ import logging
 from celery import shared_task
 
 from django.utils import timezone
-from django.conf import settings
 
 from barangays.models import Barangay
 from .models import Rainfall
 
 logger = logging.getLogger(__name__)
-OPEN_WEATHER_MAP_API = settings.OPEN_WEATHER_MAP_API
 
 def rainfall_url(latitude: float, longitude: float) -> str:
     return (
