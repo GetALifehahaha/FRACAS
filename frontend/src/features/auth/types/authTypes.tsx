@@ -1,7 +1,7 @@
 import type {AxiosError} from 'axios'
 
 export interface Login {
-    phone: string,
+    username: string,
     password: string,
 }
 
