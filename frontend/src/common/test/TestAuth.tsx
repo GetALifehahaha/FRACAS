@@ -1,6 +1,6 @@
 import { useAuth } from '@/features/auth/context/useAuth'
 import React from 'react'
-import { Button } from '../components/ui/button';
+import { Button } from '@/common/ui/button';
 
 
 const TestAuth = () => {
