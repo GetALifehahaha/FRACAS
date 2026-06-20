@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from users.views import CookieTokenObtainPairView, CookieTokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # CUSTOM AUTH
+    path('api/auth/jwt/create/', CookieTokenObtainPairView.as_view()),
+    path('api/auth/jwt/refresh/', CookieTokenRefreshView.as_view()),
+
     re_path('auth/', include('djoser.urls')),
     re_path('auth/', include('djoser.urls.jwt')),
 
