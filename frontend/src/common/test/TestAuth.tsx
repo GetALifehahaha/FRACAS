@@ -9,7 +9,7 @@ const TestAuth = () => {
     <div>
       <div>
         <h5>Positive Login</h5>
-        <button className='bg-black text-white p-1' onClick={() => login({
+        <button className='bg-black text-white p-1 cursor-pointer' onClick={() => login({
           username: 'root',
           password: 'root'
         })}>Login</button>

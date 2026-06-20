@@ -15,7 +15,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             setInitializing(true);
             try {
                 const { data } = await axios.post(
-                    `${import.meta.env.VITE_API_URL}/api/jwt/refresh/`,
+                    `${import.meta.env.VITE_API_URL}/api/auth/jwt/refresh/`,
                     {},
                     { withCredentials: true }
                 );
@@ -46,7 +46,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         
         try {
             const { data } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/jwt/create/`, 
+                `${import.meta.env.VITE_API_URL}/api/auth/jwt/create/`, 
                 credentials,
                 { withCredentials: true }
             );
@@ -60,7 +60,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     const logout = async (): Promise<void> => {
         try {
-            await apiClient.post('/api/jwt/logout/', {}, { withCredentials: true });
+            await apiClient.post('/api/auth/logout/', {}, { withCredentials: true });
         } finally {
             tokenService.clearAccess();
             setAuthenticated(false);
