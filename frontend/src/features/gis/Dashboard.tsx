@@ -1,9 +1,12 @@
 import React from 'react'
+import GISMap from './component/GISMap'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <>
+      <GISMap />
+    </>
   )
-}
+} 
 
 export default Dashboard

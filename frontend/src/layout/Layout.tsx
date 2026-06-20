@@ -3,9 +3,11 @@ import { Outlet } from 'react-router-dom'
 import Header from '@/common/components/Header.tsx'
 const Layout = () => {
   return (
-    <div className='max-w-vw w-full min-h-screen'>
+    <div className='w-full h-screen min-h-screen flex flex-col'>
         <Header />
-        <Outlet />
+        <div className='flex-1 p-2'>
+          <Outlet />
+        </div>
     </div>
   )
 }
