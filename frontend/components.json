@@ -16,7 +16,7 @@
   "menuAccent": "subtle",
   "aliases": {
     "components": "@/common/components",
-    "utils": "@/common/utils",
+    "utils": "@/common/utils/utils",
     "ui": "@/common/ui",
     "lib": "@/common/lib",
     "hooks": "@/common/hooks"
