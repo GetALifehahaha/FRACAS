@@ -16,9 +16,9 @@ const Legend = () => {
     ]
 
     const legendList = legends.map(({name, color}, index) =>
-        <span key={index} className='flex items-center gap-4'>
+        <span key={index} className='flex items-center gap-2'>
             <div className={cn('aspect-square w-2 rounded-full', color)} />
-            <h5 className='text-sm font-medium'>{name}</h5>
+            <h5 className='text-xs font-medium text-black/50'>{name}</h5>
         </span>
     )
     
