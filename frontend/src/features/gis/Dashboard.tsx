@@ -1,6 +1,7 @@
 import React from 'react'
 import GISMap from './component/GISMap'
 import RiskCard from './component/RiskCard'
+import Legend from './component/Legend'
 import type { RiskCardType } from './types/RiskType'
 
 const Dashboard = () => {
@@ -37,6 +38,7 @@ const Dashboard = () => {
 
   	return (
     	<>
+			<Legend />
 			<div className='absolute top-4 right-4 grid grid-cols-2 gap-2 z-2 w-1/4'>
 				{riskList}
 			</div>
