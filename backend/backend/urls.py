@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('auth/', include('djoser.urls')),
     re_path('auth/', include('djoser.urls.jwt')),
+
+    # LOCAL APPS
+    path('', include('barangays.urls')),
 ]

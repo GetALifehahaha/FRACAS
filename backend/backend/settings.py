@@ -40,7 +40,11 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(hours=1)
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=1),
+    "AUTH_COOKIE": "refresh_token",
+    "AUTH_COOKIE_HTTP_ONLY": True,
+    "AUTH_COOKIE_SECURE": False,
+    "AUTH_COOKIE_SAMESITE": "Lax",
 }
 
 
@@ -57,6 +61,7 @@ INSTALLED_APPS = [
 
     # LIBRARIES
     'rest_framework',
+    'rest_framework_gis',
     'django.contrib.gis',
     'djoser',
 
@@ -118,6 +123,13 @@ DATABASES = {
         "HOST": config("DB_HOST"),
         "PORT": config("DB_PORT")
     },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": config("REDIS_URL"),
+    }
 }
 
 # Password validation
