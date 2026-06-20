@@ -1,5 +1,7 @@
 import { useAuth } from '@/features/auth/context/useAuth'
 import React from 'react'
+import { Button } from '../components/ui/button';
+
 
 const TestAuth = () => {
 
@@ -9,10 +11,9 @@ const TestAuth = () => {
     <div>
       <div>
         <h5>Positive Login</h5>
-        <button className='bg-black text-white p-1 cursor-pointer' onClick={() => login({
-          username: 'root',
-          password: 'root'
-        })}>Login</button>
+        <Button>
+          Login
+        </Button>
       </div>
       <div>
         <h5>Logout</h5>
