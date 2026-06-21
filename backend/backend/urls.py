@@ -25,9 +25,9 @@ urlpatterns = [
     path('api/auth/jwt/create/', CookieTokenObtainPairView.as_view()),
     path('api/auth/jwt/refresh/', CookieTokenRefreshView.as_view()),
 
-    re_path('auth/', include('djoser.urls')),
-    re_path('auth/', include('djoser.urls.jwt')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
 
     # LOCAL APPS
-    path('', include('barangays.urls')),
+    path('api/', include('barangays.urls')),
 ]

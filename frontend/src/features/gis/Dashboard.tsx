@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import GISMap from './component/GISMap'
 import RiskCard from './component/RiskCard'
 import Legend from './component/Legend'
 import type { RiskCardType } from './types/RiskType'
+import apiClient from '@/app/apiClient'
 
 const Dashboard = () => {
 
@@ -35,6 +36,16 @@ const Dashboard = () => {
 			barangays={barangays}
 			/>
 	);
+
+	useEffect(() => {
+		const getInfo = async () => {
+			const data = await apiClient.get('/api/barangays/')
+
+			console.log(data)
+		}	
+
+		getInfo();
+	}, [])
 
   	return (
     	<>

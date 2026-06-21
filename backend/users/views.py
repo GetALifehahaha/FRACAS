@@ -5,7 +5,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # Create your views here.
 class CookieTokenObtainPairView(TokenObtainPairView):
     def finalize_response(self, request, response, *args, **kwargs):
-        print("THIS HAPPENED!!")
         if (response.data.get("refresh")):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE"],

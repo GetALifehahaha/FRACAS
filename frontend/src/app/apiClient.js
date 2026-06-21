@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
 
             try {
                 const { data } = await axios.post(
-                    `${BASE_URL}/api/jwt/refresh/`,
+                    `${BASE_URL}/api/auth/jwt/refresh/`,
                     {},
                     { withCredentials: true }
                 )
