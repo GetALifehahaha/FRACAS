@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import GISMap from './component/GISMap'
 import RiskCard from './component/RiskCard'
 import Legend from './component/Legend'
 import type { RiskCardType } from './types/RiskType'
 import apiClient from '@/app/apiClient'
+import type { FeatureCollection, Feature, Geometry } from 'geojson'
 
 const Dashboard = () => {
+
+	const [barangays, setBarangays] = useState<FeatureCollection | null>(null);
 
 	const Risks: RiskCardType[] = [
 		{
@@ -37,15 +40,23 @@ const Dashboard = () => {
 			/>
 	);
 
+	const handleFeatureClick = useCallback((id: string, properties: Record<string, unknown>): void => {
+		alert(properties.name)
+	}, [])
+
 	useEffect(() => {
 		const getInfo = async () => {
 			const data = await apiClient.get('/api/barangays/')
 
-			console.log(data)
+			setBarangays(data.data)
 		}	
 
 		getInfo();
 	}, [])
+
+	useEffect(() => {
+		console.log(barangays)
+	}, [barangays])
 
   	return (
     	<>
@@ -53,7 +64,9 @@ const Dashboard = () => {
 			<div className='absolute top-4 right-4 grid grid-cols-2 gap-2 z-2 w-1/4'>
 				{riskList}
 			</div>
-      		<GISMap />
+			{
+				barangays && <GISMap data={barangays} onFeatureClick={handleFeatureClick} />
+			}
     	</>
   	)
 } 
