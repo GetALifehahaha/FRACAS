@@ -2,9 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react'
 import GISMap from './component/GISMap'
 import RiskCard from './component/RiskCard'
 import Legend from './component/Legend'
+import PasonancaDamStatus from './component/PasonancaDamStatus'
 import type { RiskCardType } from './types/RiskType'
 import apiClient from '@/app/apiClient'
 import type { FeatureCollection, Feature, Geometry } from 'geojson'
+import type { PasonancaDamType } from './types/PasonancaDamType'
 
 const Dashboard = () => {
 
@@ -31,6 +33,12 @@ const Dashboard = () => {
 			barangays: null
 		},
 	]
+
+	const PasonancaDamLevel: PasonancaDamType = {
+		currentLevel: 10,
+		criticalLevel: 40,
+		rateOfChange: 2
+	}
 
 	const riskList = Risks.map(({risk, barangays}, index) => 
 		<RiskCard 
@@ -63,6 +71,10 @@ const Dashboard = () => {
 			<Legend />
 			<div className='absolute top-4 right-4 grid grid-cols-2 gap-2 z-2 w-1/4'>
 				{riskList}
+				<PasonancaDamStatus 
+					criticalLevel={PasonancaDamLevel.criticalLevel} 
+					currentLevel={PasonancaDamLevel.currentLevel} 
+					rateOfChange={PasonancaDamLevel.rateOfChange} />
 			</div>
 			{
 				barangays && <GISMap data={barangays} onFeatureClick={handleFeatureClick} />

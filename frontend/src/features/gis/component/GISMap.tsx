@@ -25,6 +25,7 @@ const BarangayLayers = ({data, onFeatureClick}: GISMapProps) => {
 
 		const onLoad = () => {
 			map.addSource('barangays', { type: 'geojson', data, promoteId: 'id'});
+			
 			map.addLayer({ id: 'barangay-fill', type: 'fill', source: 'barangays', paint: {"fill-color": '#3b82f6', 'fill-opacity': 0.05}})
 			map.addLayer({ id: 'barangay-line', type: 'line', source: 'barangays', paint: {"line-color": '#3b82f6', 'line-width': 1, 'line-opacity': 0.10}})
 
